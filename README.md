@@ -1,20 +1,13 @@
 [![Build Status](https://secure.travis-ci.org/balexand/email_validator.png)](http://travis-ci.org/balexand/email_validator)
 
-## Usage
 
-Add to your Gemfile:
+Validates format of email address. It also invalidates @pages.plusgoogle.com addresses.
+
+## Usage
 
 ```ruby
 gem 'email_validator'
 ```
-
-Run:
-
-```
-bundle install
-```
-
-Then add the following to your model:
 
 ```ruby
 validates :my_email_attribute, :email => true
