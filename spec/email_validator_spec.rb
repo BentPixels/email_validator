@@ -85,7 +85,8 @@ describe EmailValidator do
         "another-invalid-ip@127.0.0.256",
         "IP-and-port@127.0.0.1:25",
         "the-local-part-is-invalid-if-it-is-longer-than-sixty-four-characters@sld.net",
-        "user@example.com\n<script>alert('hello')</script>"
+        "user@example.com\n<script>alert('hello')</script>",
+        "googleconnectaddress@pages.plusgoogle.com"
       ].each do |email|
 
         it "#{email.inspect} should not be valid" do
