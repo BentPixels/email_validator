@@ -82,7 +82,6 @@ describe EmailValidator do
         "IP-and-port@127.0.0.1:25",
         "the-local-part-is-invalid-if-it-is-longer-than-sixty-four-characters@sld.net",
         "user@example.com\n<script>alert('hello')</script>",
-        "googleconnectaddress@pages.plusgoogle.com",
         " nigel.worthington@big.co.uk",
         "nigel.worthington@big.co.uk  "
       ].each do |email|
