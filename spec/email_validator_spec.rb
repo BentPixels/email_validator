@@ -21,14 +21,12 @@ class TestUserWithMessage < TestModel
 end
 
 describe EmailValidator do
-
   describe "validation" do
     context "given the valid emails" do
       [
         "a+b@plus-in-local.com",
         "a_b@underscore-in-local.com",
         "user@example.com",
-        " user@example.com ",
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@letters-in-local.org",
         "01234567890@numbers-in-local.net",
         "a@single-character-in-local.org",
@@ -57,9 +55,7 @@ describe EmailValidator do
         it "#{email.inspect} should be valid in strict_mode" do
           StrictUser.new(:email => email).should be_valid
         end
-
       end
-
     end
 
     context "given the invalid emails" do
@@ -86,7 +82,9 @@ describe EmailValidator do
         "IP-and-port@127.0.0.1:25",
         "the-local-part-is-invalid-if-it-is-longer-than-sixty-four-characters@sld.net",
         "user@example.com\n<script>alert('hello')</script>",
-        "googleconnectaddress@pages.plusgoogle.com"
+        "googleconnectaddress@pages.plusgoogle.com",
+        " nigel.worthington@big.co.uk",
+        "nigel.worthington@big.co.uk  "
       ].each do |email|
 
         it "#{email.inspect} should not be valid" do
@@ -96,7 +94,6 @@ describe EmailValidator do
         it "#{email.inspect} should not be valid in strict_mode" do
           StrictUser.new(:email => email).should_not be_valid
         end
-
       end
     end
 
@@ -117,7 +114,6 @@ describe EmailValidator do
         it "#{email.inspect} should not be valid in strict_mode" do
           StrictUser.new(:email => email).should_not be_valid
         end
-
       end
     end
   end
