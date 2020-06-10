@@ -16,6 +16,6 @@ class EmailValidator < ActiveModel::EachValidator
 
   def self.valid?(email, opts = {})
     name_validation = opts[:strict_mode] ? '-a-z0-9+._' : '^@\\s'
-    email =~ /\A\s*([#{name_validation}]{1,64})@((?:[-a-z0-9]+\.)+[a-z]{2,})\s*\z/i && email =~ /\A[^\s]*[^\s]\z/
+    email =~ /\A([#{name_validation}]{1,64})@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   end
 end
