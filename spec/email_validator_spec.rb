@@ -4,10 +4,6 @@ class TestUser < TestModel
   validates :email, :email => true
 end
 
-class StrictUser < TestModel
-  validates :email, :email => {:strict_mode => true}
-end
-
 class TestUserAllowsNil < TestModel
   validates :email, :email => {:allow_nil => true}
 end
@@ -21,7 +17,6 @@ class TestUserWithMessage < TestModel
 end
 
 describe EmailValidator do
-
   describe "validation" do
     context "given the valid emails" do
       [
@@ -53,13 +48,7 @@ describe EmailValidator do
         it "#{email.inspect} should be valid" do
           TestUser.new(:email => email).should be_valid
         end
-
-        it "#{email.inspect} should be valid in strict_mode" do
-          StrictUser.new(:email => email).should be_valid
-        end
-
       end
-
     end
 
     context "given the invalid emails" do
@@ -92,32 +81,6 @@ describe EmailValidator do
         it "#{email.inspect} should not be valid" do
           TestUser.new(:email => email).should_not be_valid
         end
-
-        it "#{email.inspect} should not be valid in strict_mode" do
-          StrictUser.new(:email => email).should_not be_valid
-        end
-
-      end
-    end
-
-    context "given the emails that should be invalid in strict_mode but valid in normal mode" do
-      [
-        "hans,peter@example.com",
-        "hans(peter@example.com",
-        "hans)peter@example.com",
-        "partially.\"quoted\"@sld.com",
-        "&'*+-./=?^_{}~@other-valid-characters-in-local.net",
-        "mixed-1234-in-{+^}-local@sld.net"
-      ].each do |email|
-
-        it "#{email.inspect} should be valid" do
-          TestUser.new(:email => email).should be_valid
-        end
-
-        it "#{email.inspect} should not be valid in strict_mode" do
-          StrictUser.new(:email => email).should_not be_valid
-        end
-
       end
     end
   end
@@ -153,16 +116,6 @@ describe EmailValidator do
 
     it "should not be valid when :allow_nil option is set to false" do
       TestUserAllowsNilFalse.new(:email => nil).should_not be_valid
-    end
-  end
-
-  describe "default_options" do
-    context "when 'email_validator/strict' has been required" do
-      before { require 'email_validator/strict' }
-
-      it "should validate using strict mode" do
-        TestUser.new(:email => "&'*+-./=?^_{}~@other-valid-characters-in-local.net").should_not be_valid
-      end
     end
   end
 end
